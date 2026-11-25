@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kampüs Yemekhane</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 640px; margin: 2rem auto; padding: 0 1rem; color: #222; }
+    nav a { margin-right: 1rem; }
+    table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+    td, th { border-bottom: 1px solid #ddd; padding: .5rem; text-align: left; }
+    .uyari { background: #fff4e5; padding: .75rem; border-radius: 6px; }
+    .iyi { color: #1a7f37; } .kotu { color: #c62828; }
+    label { display: block; margin-top: .5rem; }
+  </style>
+</head>
+<body>
+  <nav><a href="/">Günlük Menü</a></nav>
+  {% block icerik %}{% endblock %}
+</body>
+</html>

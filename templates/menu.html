@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block icerik %}
+<h1>Günlük Menü</h1>
+<form method="get">
+  <input type="date" name="tarih" value="{{ tarih }}">
+  <button>Göster</button>
+</form>
+
+{% if sonuc.durum == "ok" %}
+  <table>
+    <tr><th>Yemek</th><th>Kalori</th></tr>
+    {% for y in sonuc.yemekler %}
+      <tr><td>{{ y.ad }}</td><td>{{ y.kalori }} kcal</td></tr>
+    {% endfor %}
+    <tr><th>Toplam</th><th>{{ sonuc.toplam_kalori }} kcal</th></tr>
+  </table>
+{% elif sonuc.durum == "hafta_sonu" %}
+  <p class="uyari">Yemekhane hafta sonu kapalıdır.</p>
+{% elif sonuc.durum == "yok" %}
+  <p class="uyari">Bu tarih için menü bulunamadı.</p>
+{% else %}
+  <p class="uyari">Tarih YYYY-AA-GG biçiminde olmalı.</p>
+{% endif %}
+{% endblock %}
