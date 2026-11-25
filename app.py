@@ -2,6 +2,7 @@ from datetime import date
 
 from flask import Flask, jsonify, render_template, request
 
+from butce import aylik_butce_hesapla
 from menu import gunun_menusu
 
 app = Flask(__name__)
@@ -32,6 +33,34 @@ def menu_api():
         return jsonify({"hata": "Tarih YYYY-AA-GG biçiminde olmalı."}), 400
     sonuc = gunun_menusu(tarih)
     return jsonify(sonuc), (404 if sonuc["durum"] == "yok" else 200)
+
+
+# ---------- Görev 2: Bütçe hesaplayıcı ----------
+def butce_parametreleri(kaynak):
+    try:
+        yil, ay = map(int, kaynak["ay"].split("-"))
+        return yil, ay, float(kaynak["ogun_ucreti"]), float(kaynak["butce"])
+    except (KeyError, ValueError):
+        raise ValueError("Ay (YYYY-AA), öğün ücreti ve bütçe sayı olarak girilmeli.")
+
+
+@app.route("/butce", methods=["GET", "POST"])
+def butce_sayfasi():
+    sonuc, hata = None, None
+    if request.method == "POST":
+        try:
+            sonuc = aylik_butce_hesapla(*butce_parametreleri(request.form))
+        except (KeyError, ValueError) as e:
+            hata = str(e) or "Geçersiz giriş."
+    return render_template("butce.html", sonuc=sonuc, hata=hata)
+
+
+@app.get("/api/butce")
+def butce_api():
+    try:
+        return jsonify(aylik_butce_hesapla(*butce_parametreleri(request.args)))
+    except (KeyError, ValueError) as e:
+        return jsonify({"hata": str(e) or "Geçersiz giriş."}), 400
 
 
 if __name__ == "__main__":
