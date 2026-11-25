@@ -8,7 +8,7 @@
 
 ## İş takip panosu
 
-Pano: **[GitHub Projects – Kampüs Yemekhane](PANO_BAGLANTISI_BURAYA)**
+Pano: **[GitHub Projects – Kampüs Yemekhane](https://github.com/users/burakaydin616161/projects/5)**
 
 Sütunlar: Yapılacak · Devam Ediyor · Tamamlandı
 
@@ -33,7 +33,6 @@ Testleri çalıştırmak için:
 pytest -v
 ```
 
-Testler her push ve pull request'te GitHub Actions ile de otomatik çalışır.
 
 ## Özellikleri deneme
 
