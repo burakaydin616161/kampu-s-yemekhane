@@ -61,5 +61,5 @@ butce.py          Bütçe hesaplama mantığı
 data/menu.json    Örnek menü verisi
 templates/        HTML şablonları
 tests/            pytest testleri
-.github/workflows CI (GitHub Actions)
+
 ```
