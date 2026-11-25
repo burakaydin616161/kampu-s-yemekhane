@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block icerik %}
+<h1>Aylık Yemekhane Bütçesi</h1>
+<form method="post">
+  <label>Ay <input type="month" name="ay" required value="{{ request.form.ay }}"></label>
+  <label>Öğün ücreti (TL) <input type="number" step="0.01" name="ogun_ucreti" required value="{{ request.form.ogun_ucreti or 40 }}"></label>
+  <label>Aylık bütçe (TL) <input type="number" step="0.01" name="butce" required value="{{ request.form.butce }}"></label>
+  <p><button>Hesapla</button></p>
+</form>
+
+{% if hata %}<p class="uyari">{{ hata }}</p>{% endif %}
+
+{% if sonuc %}
+  <table>
+    <tr><td>Hafta içi gün</td><td>{{ sonuc.hafta_ici_gun }}</td></tr>
+    <tr><td>Toplam maliyet</td><td>{{ "%.2f"|format(sonuc.toplam_maliyet) }} TL</td></tr>
+    <tr><td>Kalan</td><td class="{{ 'iyi' if sonuc.yeterli_mi else 'kotu' }}">{{ "%.2f"|format(sonuc.kalan) }} TL</td></tr>
+    <tr><td>Bütçenin karşıladığı öğün</td><td>{{ sonuc.karsilanabilen_ogun }} / {{ sonuc.hafta_ici_gun }}</td></tr>
+  </table>
+  <p class="{{ 'iyi' if sonuc.yeterli_mi else 'kotu' }}">
+    {{ "Bütçe bu ay için yeterli." if sonuc.yeterli_mi else "Bütçe bu ay için yetersiz." }}
+  </p>
+{% endif %}
+{% endblock %}
